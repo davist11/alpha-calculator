@@ -12,8 +12,59 @@ button {
 	margin: 0;
 }
 
+input,
+select {
+	margin-top: 11px;
+	width: 150px;
+}
+
+input {
+	@include background-image(linear-gradient(#fff, $grey));
+	border: 1px solid $grey;
+	border-radius: 3px;
+	font-size: 14px;
+	height: 26px;
+	margin-top: 7px;
+	padding: 0 5px;
+}
+
 button {
+	background: $yellow;
 	border: none;
+	border-radius: 5px;
+	color: #000;
+	font-size: 16px;
 	overflow: visible;
+	padding: 10px 20px;
+	text-transform: uppercase;
 	width: auto;
+
+	&:active,
+	&:focus {
+		box-shadow: 0 0 5px rgba(#000, 0.5);
+		outline: none;
+	}
+}
+
+.forms {
+	> li {
+		border-bottom: 1px solid $grey;
+		margin-bottom: 20px;
+		overflow: hidden;
+		padding-bottom: 20px;
+
+		&.buttons {
+			border: none;
+			padding-left: 140px;
+		}
+	}
+
+	label {
+		display: block;
+		float: left;
+		font-size: 20px;
+		padding: 5px 20px 5px 0;
+		text-align: right;
+		width: 140px;
+	}
 }

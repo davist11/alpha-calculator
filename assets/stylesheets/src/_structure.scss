@@ -1,25 +1,44 @@
-/* @group header */
-	#header {
-		background: blue;
+.wrapper {
+	margin: 0 auto 200px;
+	max-width: 800px;
+}
 
-		@include breakpoint($breakpoint-medium-width) {
-			background: red;
-		}
-	}
-/* @end */
+h1 {
+	background: #000;
+	color: $yellow;
+	font-size: 40px;
+	margin-bottom: 40px;
+	padding: 1em;
+	text-align: center;
+	text-transform: uppercase;
+}
 
-/* @group content */
-	#content {
-		background: green;
+dl {
+	font-size: 16px;
+	margin-bottom: 40px;
+	overflow: hidden;
+}
 
-		@include breakpoint($breakpoint-medium-width) {
-			background: purple;
-		}
-	}
-/* @end */
+dt {
+	clear: both;
+	float: left;
+	font-weight: bold;
+	padding: 0 5px 0 10px;
+}
 
-/* @group footer */
-	#footer {
+table {
+	font-size: 16px;
+	margin-bottom: 40px;
+	width: 100%;
+}
 
-	}
-/* @end */
+th,
+td {
+	border-bottom: 1px solid $grey;
+	padding: 10px;
+	text-align: left;
+}
+
+th {
+	font-weight: bold;
+}

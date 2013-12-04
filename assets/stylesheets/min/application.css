@@ -151,34 +151,58 @@ img {
 }
 
 /* @end */
-/* @group header */
-/* line 2, ../src/_structure.scss */
-#header {
-  background: blue;
-}
-@media (min-width: 800px) {
-  /* line 2, ../src/_structure.scss */
-  #header {
-    background: red;
-  }
+/* line 1, ../src/_structure.scss */
+.wrapper {
+  margin: 0 auto 200px;
+  max-width: 800px;
 }
 
-/* @end */
-/* @group content */
-/* line 12, ../src/_structure.scss */
-#content {
-  background: green;
-}
-@media (min-width: 800px) {
-  /* line 12, ../src/_structure.scss */
-  #content {
-    background: purple;
-  }
+/* line 6, ../src/_structure.scss */
+h1 {
+  background: #000;
+  color: #e0bf02;
+  font-size: 40px;
+  margin-bottom: 40px;
+  padding: 1em;
+  text-align: center;
+  text-transform: uppercase;
 }
 
-/* @end */
-/* @group footer */
-/* @end */
+/* line 16, ../src/_structure.scss */
+dl {
+  font-size: 16px;
+  margin-bottom: 40px;
+  overflow: hidden;
+}
+
+/* line 22, ../src/_structure.scss */
+dt {
+  clear: both;
+  float: left;
+  font-weight: bold;
+  padding: 0 5px 0 10px;
+}
+
+/* line 29, ../src/_structure.scss */
+table {
+  font-size: 16px;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+/* line 36, ../src/_structure.scss */
+th,
+td {
+  border-bottom: 1px solid #dedede;
+  padding: 10px;
+  text-align: left;
+}
+
+/* line 42, ../src/_structure.scss */
+th {
+  font-weight: bold;
+}
+
 /* line 2, ../src/_forms.scss */
 label,
 button {
@@ -195,11 +219,66 @@ button {
   margin: 0;
 }
 
-/* line 15, ../src/_forms.scss */
+/* line 16, ../src/_forms.scss */
+input,
+select {
+  margin-top: 11px;
+  width: 150px;
+}
+
+/* line 21, ../src/_forms.scss */
+input {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #dedede));
+  background-image: -webkit-linear-gradient(#ffffff, #dedede);
+  background-image: -moz-linear-gradient(#ffffff, #dedede);
+  background-image: -o-linear-gradient(#ffffff, #dedede);
+  background-image: linear-gradient(#ffffff, #dedede);
+  border: 1px solid #dedede;
+  border-radius: 3px;
+  font-size: 14px;
+  height: 26px;
+  margin-top: 7px;
+  padding: 0 5px;
+}
+
+/* line 31, ../src/_forms.scss */
 button {
+  background: #e0bf02;
   border: none;
+  border-radius: 5px;
+  color: #000;
+  font-size: 16px;
   overflow: visible;
+  padding: 10px 20px;
+  text-transform: uppercase;
   width: auto;
+}
+/* line 43, ../src/_forms.scss */
+button:active, button:focus {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  outline: none;
+}
+
+/* line 50, ../src/_forms.scss */
+.forms > li {
+  border-bottom: 1px solid #dedede;
+  margin-bottom: 20px;
+  overflow: hidden;
+  padding-bottom: 20px;
+}
+/* line 56, ../src/_forms.scss */
+.forms > li.buttons {
+  border: none;
+  padding-left: 140px;
+}
+/* line 62, ../src/_forms.scss */
+.forms label {
+  display: block;
+  float: left;
+  font-size: 20px;
+  padding: 5px 20px 5px 0;
+  text-align: right;
+  width: 140px;
 }
 
 /* No files to import found in patterns/* */

@@ -8,42 +8,88 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<link href="/assets/stylesheets/min/application.css" rel="stylesheet">
+	<link href="/assets/stylesheets/min/application.min.css" rel="stylesheet">
 </head>
 <body>
+	<h1>Alpha Calculator</h1>
 
-	<form id="alpha-calculator">
-		<ol class="forms">
-			<li>
-				<label for="phase">Phase</label>
-				<select id="phase" required>
-					<option value="">Select Phase</option>
-					<option value="prime">Prime</option>
-					<option value="adapt">Adapt</option>
-					<option value="surge">Surge</option>
-					<option value="complete">Complete</option>
-				</select>
-			</li>
+	<div class="wrapper">
+		<form id="alpha-calculator">
+			<ol class="forms">
+				<li>
+					<label for="phase">Phase</label>
+					<select id="phase" required>
+						<option value="">Select Phase</option>
+						<option value="prime">Prime</option>
+						<option value="adapt">Adapt</option>
+						<option value="surge">Surge</option>
+						<option value="complete">Complete</option>
+					</select>
+				</li>
 
-			<li>
-				<label for="weight">Weight</label>
-				<input type="number" id="weight" value="175" min="0" required>
-			</li>
+				<li>
+					<label for="weight">Weight</label>
+					<input type="number" id="weight" value="175" min="0" step="any" required>
+				</li>
 
-			<li>
-				<label for="body-fat">Body Fat Percentage</label>
-				<input type="number" id="body-fat" value="20" min="0" max="100" required>
-			</li>
+				<li>
+					<label for="body-fat">Body Fat %</label>
+					<input type="number" id="body-fat" value="20" min="0" max="100" step="any" required>
+				</li>
 
-			<li class="buttons">
-				<button type="submit">Calculate</button>
-			</li>
-		</ol>
-	</form>
+				<li class="buttons">
+					<button type="submit">Calculate</button>
+				</li>
+			</ol>
+		</form>
+	</div>
+
+	<script id="entry-template" type="text/x-handlebars-template">
+		<dl>
+			<dt>Maintenance Calories:</dt>
+			<dd>{{ round calories }}</dd>
+			<dt>LBM:</dt>
+			<dd>{{ round lbm }}</dd>
+		</dl>
+
+		<table>
+			<thead>
+				<tr>
+					<th></th>
+					<th scope="col">Workout Days</th>
+					<th scope="col">Non-Workout Days</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">Calories</th>
+					<td>{{ round workout.calories }}</td>
+					<td>{{ round no_workout.calories }}</td>
+				</tr>
+				<tr>
+					<th scope="row">Protein</th>
+					<td>{{ round workout.protein }}</td>
+					<td>{{ round no_workout.protein }}</td>
+				</tr>
+				<tr>
+					<th scope="row">Carbs</th>
+					<td>{{{ listOrSingle workout.carbs }}}</td>
+					<td>{{{ listOrSingle no_workout.carbs }}}</td>
+				</tr>
+				<tr>
+					<th scope="row">Fat</th>
+					<td>{{{ listOrSingle workout.fat }}}</td>
+					<td>{{{ listOrSingle no_workout.fat }}}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<button id="reset">Reset</button>
+	</script>
 
 	<!--[if lte IE 8]><script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script><![endif]-->
 	<!--[if gt IE 8]><!--><script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!--<![endif]-->
 	<script>window.jQuery || document.write('<script src="/assets/scripts/src/vendor/jquery.js"><\/script>')</script>
-	<script src="/assets/scripts/min/application.js"></script>
+	<script src="/assets/scripts/min/application.min.js"></script>
 </body>
 </html>

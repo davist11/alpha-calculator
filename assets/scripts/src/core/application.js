@@ -76,19 +76,30 @@ window.ALPHA || (ALPHA = {});
 		this.vars.$form.on('submit', this.calculate.bind(this));
 	};
 
+	ALPHA.bindReset = function() {
+		$('#reset').one('click', this.reset.bind(this));
+	};
+
 	ALPHA.calculate = function(e) {
 		e.preventDefault();
 
 		// Calculate all the base values
-		this.vars.weight = parseInt(this.vars.$weight.val(), 10);
-		this.vars.bodyFat = parseInt(this.vars.$bodyFat.val(), 10);
+		this.vars.weight = parseFloat(this.vars.$weight.val());
+		this.vars.bodyFat = parseFloat(this.vars.$bodyFat.val());
 		this.vars.bodyFatPounds = this.vars.weight * (this.vars.bodyFat / 100);
 		this.vars.lbm = this.vars.weight - this.vars.bodyFatPounds;
 		this.vars.maintenanceCalories = this.getMaintenanceCalories();
 		this.vars.calories = this.vars.lbm * this.vars.maintenanceCalories;
 
 		// Calculate the phase specific stuff
-		console.log(this.vars);
+		this.vars.phase = this.phases[this.vars.$phase.val()];
+		this.vars.days = {
+			workout: this.getWorkoutDays(this.vars.phase.workout),
+			no_workout: this.getWorkoutDays(this.vars.phase.no_workout)
+		};
+
+		this.generateTable();
+		this.bindReset();
 	};
 
 	ALPHA.getMaintenanceCalories = function() {
@@ -104,6 +115,86 @@ window.ALPHA || (ALPHA = {});
 			return 13;
 		}
 	};
+
+	ALPHA.getWorkoutDays = function(type) {
+		var day = {};
+
+		day.calories = this.vars.calories + type.calories;
+		day.protein = this.vars.lbm * type.protein;
+
+		// Carbs are sometimes different for each week (prime)
+		if (typeof type.carbs === 'object') {
+			day.carbs = type.carbs;
+			day.fat = [];
+
+			for (var i = 0, length = day.carbs.length; i < length; i++) {
+				var calsProteinCarbs = (day.protein + day.carbs[i]) * 4;
+				var calsFat = day.calories - calsProteinCarbs;
+
+				day.fat.push(calsFat / 9);
+			}
+		} else {
+			day.carbs = this.vars.lbm * type.carbs;
+			day.calsProteinCarbs = (day.protein + day.carbs) * 4;
+			day.calsFat = day.calories - day.calsProteinCarbs;
+			day.fat = day.calsFat / 9;
+		}
+
+		return day;
+	};
+
+	ALPHA.generateTable = function() {
+		var source = $("#entry-template").html();
+		var template = Handlebars.compile(source);
+		var context = {
+			lbm: this.vars.lbm,
+			calories: this.vars.calories,
+			workout: this.vars.days.workout,
+			no_workout: this.vars.days.no_workout
+		};
+		var html = template(context);
+		var $results = $('<div>', {
+			id: 'results',
+			'class': 'hide',
+			html: html
+		});
+
+		this.vars.$form.after($results).slideUp(150, function() {
+			$results.delay(150).slideDown(150);
+		});
+	};
+
+	ALPHA.reset = function(e) {
+		e.preventDefault();
+
+		var $results = $('#results');
+
+		$results.slideUp(150, function() {
+			this.vars.$form.delay(150).slideDown(150);
+			$results.remove();
+		}.bind(this));
+	};
+
+	Handlebars.registerHelper('round', function(number) {
+		return Math.round(number);
+	});
+
+	Handlebars.registerHelper('listOrSingle', function(obj) {
+		if (typeof obj === 'object') {
+			var html = '<ul>';
+
+			for (var i = 0, length = obj.length; i < length; i++) {
+				var week = i + 1;
+				html += '<li>Week ' + week + ': ' + Math.round(obj[i]) + '</li>';
+			}
+
+			html += '</ul>';
+
+			return html;
+		} else {
+			return Math.round(obj);
+		}
+	});
 
 })(jQuery, window, document);
 
